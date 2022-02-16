@@ -10,7 +10,7 @@ import { MongooseModule } from '@nestjs/mongoose';
   imports: [
     UsersModule,
     ConfigModule.forRoot(),
-      MongooseModule.forRoot(process.env.MONGODB_URL, {
+      MongooseModule.forRoot( process.env.MONGODB_URI , {
         useNewUrlParser: true,
         useUnifiedTopology: true,
       }),
