@@ -12,7 +12,6 @@ export class LoggerMiddleware implements NestMiddleware {
           req.originalUrl
       );
     });
-
     next();
   }
 }
