@@ -58,6 +58,10 @@ export class User extends Document {
   @IsNotEmpty()
   password: string;
 
+  @Prop()
+  @IsString()
+  imgUrl: string;
+
   readonly readOnlyData: {
     id: string;
     email: string;
