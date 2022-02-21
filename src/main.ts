@@ -8,7 +8,7 @@ import * as path from 'path';
 import { NestExpressApplication } from '@nestjs/platform-express';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
   app.useGlobalFilters(new HttpExceptionFilter());
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
   app.use(
@@ -21,12 +21,11 @@ async function bootstrap() {
     }),
   );
 
-  // http://localhost:8000/media/users/aaa.png
+  //http://localhost:8000/media/users/aaa.png
 
-  // app.useStaticAssets(path.join(__dirname, './common', 'uploads'), {
-  //   prefix: '/media',
-  // });
-
+  app.useStaticAssets(path.join(__dirname, './common', 'uploads'), {
+    prefix: '/media',
+  });
 
   const config = new DocumentBuilder()
     .setTitle('C.I.C')

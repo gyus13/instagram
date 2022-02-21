@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   Post,
+  UploadedFile,
   UploadedFiles,
   UseGuards,
   UseInterceptors,
@@ -16,15 +17,17 @@ import { CurrentUser } from '../../common/decorator/user.decorator';
 import { UsersCurrentDto } from '../dto/users.current.dto';
 import { LoginRequestDto } from '../../auth/dto/login.request.dto';
 import { JwtAuthGuard } from '../../auth/jwt/jwt.guard';
-import { FilesInterceptor } from '@nestjs/platform-express';
+import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { User } from '../users.schema';
 import { multerOptions } from '../../common/utils/multer.options';
+import { AwsService } from '../aws.service';
 
 @Controller('users')
 export class UsersController {
   constructor(
     private readonly userService: UsersService,
     private readonly authService: AuthService,
+    private readonly awsService: AwsService,
   ) {}
 
   @ApiOperation({ summary: '현재 유저 정보 가져오기' })
@@ -57,23 +60,29 @@ export class UsersController {
   }
 
   @ApiOperation({ summary: '이미지 업로드' })
-  @UseInterceptors(FilesInterceptor('image', 10, multerOptions('users')))
-  @UseGuards(JwtAuthGuard)
   @Post('upload')
-  uploadCatImg(
-    @UploadedFiles() files: Array<any>, //Express.Multer.File > any
-    @CurrentUser() user: User,
-  ) {
-    console.log(files);
-
-    // return 'uploadImg';
-    // return { image: `http://localhost:8000/media/users/${files[0].filename}` };
-    return this.userService.uploadImg(user, files);
+  @UseInterceptors(FileInterceptor('image'))
+  async uploadMediaFile(@UploadedFile() file: Express.Multer.File) {
+    console.log(file);
+    return await this.awsService.uploadFileToS3('user', file);
   }
 
   @ApiOperation({ summary: '모든 유저 가져오기' })
   @Get('all')
-  getAllCat() {
+  getAllUsers() {
     return this.userService.getAllUsers();
   }
 }
+
+// @UseInterceptors(FilesInterceptor('image', 10, multerOptions('users')))
+// @UseGuards(JwtAuthGuard)
+// @Post('upload')
+// uploadCatImg(
+//   @UploadedFiles() files: Array<any>, //Express.Multer.File > any
+//   @CurrentUser() user: User,
+// ) {
+//   console.log(files);
+//   // return 'uploadImg';
+//   // return { image: `http://localhost:8000/media/users/${files[0].filename}` };
+//   return this.userService.uploadImg(user, files);
+// }
