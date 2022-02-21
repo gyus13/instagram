@@ -4,6 +4,8 @@ import { HttpExceptionFilter } from './common/exceptions/exception-filters';
 import { ValidationPipe } from '@nestjs/common';
 import * as expressBasicAuth from 'express-basic-auth';
 import { DocumentBuilder, OpenAPIObject, SwaggerModule } from '@nestjs/swagger';
+import * as path from 'path';
+import { NestExpressApplication } from '@nestjs/platform-express';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -19,9 +21,16 @@ async function bootstrap() {
     }),
   );
 
+  // http://localhost:8000/media/users/aaa.png
+
+  // app.useStaticAssets(path.join(__dirname, './common', 'uploads'), {
+  //   prefix: '/media',
+  // });
+
+
   const config = new DocumentBuilder()
     .setTitle('C.I.C')
-    .setDescription('cat')
+    .setDescription('Instagram')
     .setVersion('1.0.0')
     .build();
   const document: OpenAPIObject = SwaggerModule.createDocument(app, config);
