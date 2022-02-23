@@ -58,7 +58,10 @@ export class User extends Document {
   @IsNotEmpty()
   password: string;
 
-  @Prop()
+  @Prop({
+    default:
+      'https://github.com/amamov/NestJS-solid-restapi-boilerplate/raw/main/docs/images/1.jpeg',
+  })
   @IsString()
   imgUrl: string;
 
@@ -79,6 +82,6 @@ UserSchema.virtual('readOnlyData').get(function (this: User) {
     email: this.email,
     name: this.name,
     nickname: this.name,
-    imgUrl: this.imgUrl,
+    imgUrl: `https://nestcat.s3.ap-northeast-2.amazonaws.com/${this.imgUrl}`,
   };
 });

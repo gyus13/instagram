@@ -60,6 +60,7 @@ export class UsersController {
   }
 
   @ApiOperation({ summary: '이미지 업로드' })
+  @UseGuards(JwtAuthGuard)
   @Post('upload')
   @UseInterceptors(FileInterceptor('image'))
   async uploadMediaFile(@UploadedFile() file: Express.Multer.File) {
@@ -72,10 +73,15 @@ export class UsersController {
   getAllUsers() {
     return this.userService.getAllUsers();
   }
+
+  @ApiOperation({ summary: '이미지 url 가져오기' })
+  @Post('url')
+  getImageUrl(@Body('key') key: string) {
+    return this.awsService.getAwsS3FileUrl(key);
+  }
 }
 
 // @UseInterceptors(FilesInterceptor('image', 10, multerOptions('users')))
-// @UseGuards(JwtAuthGuard)
 // @Post('upload')
 // uploadCatImg(
 //   @UploadedFiles() files: Array<any>, //Express.Multer.File > any
