@@ -14,7 +14,7 @@ export class AwsService {
   constructor(private readonly configService: ConfigService) {
     this.awsS3 = new AWS.S3({
       accessKeyId: this.configService.get(process.env.AWS_S3_ACCESS_KEY), // process.env.AWS_S3_ACCESS_KEY
-      secretAccessKey: this.configService.get(process.env.AWS_S3_SECRET_KEY),
+      secretAccessKey: this.configService.get(process.env.AWS_S3_SECRET_KEY), // configservice가 먹히지 않는 상태.
       region: this.configService.get(process.env.AWS_S3_REGION),
     });
     this.S3_BUCKET_NAME = this.configService.get(
