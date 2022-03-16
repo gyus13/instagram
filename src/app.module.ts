@@ -6,6 +6,7 @@ import { LoggerMiddleware } from './common/middlewares/logger.middleware';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AuthModule } from './auth/auth.module';
+import { FeedsController } from './feeds/feeds.controller';
 import * as mongoose from 'mongoose';
 
 @Module({
@@ -20,7 +21,7 @@ import * as mongoose from 'mongoose';
     }),
     AuthModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, FeedsController],
   providers: [AppService],
 })
 export class AppModule implements NestModule {
