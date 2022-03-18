@@ -7,6 +7,7 @@ import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AuthModule } from './auth/auth.module';
 import { FeedsController } from './feeds/feeds.controller';
+import { FeedsService } from './feeds/feeds.service';
 import * as mongoose from 'mongoose';
 
 @Module({
@@ -22,7 +23,7 @@ import * as mongoose from 'mongoose';
     AuthModule,
   ],
   controllers: [AppController, FeedsController],
-  providers: [AppService],
+  providers: [AppService, FeedsService],
 })
 export class AppModule implements NestModule {
   private readonly isDev: boolean = process.env.MODE === 'dev' ? true : false;
