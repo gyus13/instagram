@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
-import { FeedsRequestDto } from './feeds.request.dto';
-import { FeedsService } from './feeds.service';
+import { FeedsRequestDto } from '../feeds.request.dto';
+import { FeedsService } from '../services/feeds.service';
 
 @Controller('feeds')
 export class FeedsController {

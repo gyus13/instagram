@@ -6,8 +6,9 @@ import { LoggerMiddleware } from './common/middlewares/logger.middleware';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AuthModule } from './auth/auth.module';
-import { FeedsController } from './feeds/feeds.controller';
-import { FeedsService } from './feeds/feeds.service';
+import { FeedsController } from './feeds/controllers/feeds.controller';
+import { FeedsService } from './feeds/services/feeds.service';
+import { FeedsModule } from './feeds/feeds.module';
 import * as mongoose from 'mongoose';
 
 @Module({
@@ -21,6 +22,7 @@ import * as mongoose from 'mongoose';
       useUnifiedTopology: true,
     }),
     AuthModule,
+    FeedsModule,
   ],
   controllers: [AppController, FeedsController],
   providers: [AppService, FeedsService],
