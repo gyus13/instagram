@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import {FeedsRequestDto} from "../feeds.request.dto";
+import { FeedsRequestDto } from '../feeds.request.dto';
 
 @Injectable()
 export class FeedsService {
@@ -7,6 +7,7 @@ export class FeedsService {
 
   async upload(body: FeedsRequestDto) {
     const { title, content, imgUrl } = body;
+
 
   }
 }
