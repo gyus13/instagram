@@ -1,6 +1,6 @@
 module.exports = { 
     apps: [{
-      name    : "onvi",	
+      name    : "instagram",	
       script  : "npm",
       args    : "start"
     }]
