@@ -4,7 +4,7 @@ ssh ubuntu@3.35.206.95 <<EOF
     git pull origin master
     curl -o-   https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh    | bash
     . ~/.nvm/nvm.sh 
-    nvm install 16.2.0
+    nvm install 14.19.1
     npm install
     npm install -g typescript
     npm install -g ts-node
